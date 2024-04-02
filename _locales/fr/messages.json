@@ -1,0 +1,22 @@
+{
+  "extensionName": {
+    "message": "Oui Ad Good",
+    "description": "La Publicité Solidaire"
+  },
+  "extensionDescription": {
+    "message": "Aidez des Associations caritatives sans dépenser un centime, chaque fois que vous ouvrez un nouvel onglet dans votre navigateur internet.",
+    "description": "Chaque fois que vous ouvrez un nouvel onglet, nous vous montrerons des bannières d'organisations à but non lucratif, d'associations caritatives ou d'entreprises sociales, qui les aideront à se faire connaître gratuitement. Nous ne leur facturons pas la publicité sur notre onglet. Ainsi, en utilisant notre extension, vous offrez de la publicité gratuite. Sur notre onglet, vous pouvez utiliser votre moteur de recherche préféré, ajouter des favoris/raccourcis, tout en bénéficiant de superbes fonds d'écrans."
+  },
+  "enabledStatus": {
+    "message": "Activé",
+    "description": "Status text when the extension is enabled"
+  },
+  "disabledStatus": {
+    "message": "Désactivé",
+    "description": "Status text when the extension is disabled"
+  },
+  "socialForGood": {
+    "message": "Réseaux Sociaux Positifs : ",
+    "description": "Text displayed in the extension menu"
+  }
+}

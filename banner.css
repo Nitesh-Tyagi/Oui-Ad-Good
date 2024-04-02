@@ -1,0 +1,66 @@
+.banners-iframe {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+  background: white;
+  color: black;
+  border: 0;
+  border-style: none;
+}
+
+.amazon-container {
+  width: 100%;
+  height: 300px;
+}
+
+.amazonsearch-container {
+  width: 100%;
+  height: 300px;
+}
+
+.facebook-container {
+  overflow: hidden;
+  width: 100%;
+  height: 475px;
+  margin: 0 0 10px 0;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+}
+
+.facebook-banners-container {
+  max-width: 100%;
+}
+
+.linkedin-container {
+  overflow: hidden;
+  width: 100%;
+  height: 532px;
+  margin: 0 0 10px 0;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+}
+
+.linkedin-banners-container {
+  max-width: 100%;
+}
+
+.twitch-container {
+  width: 100%;
+  height: 170px;
+}
+
+.equipe-container {
+  width: 100%;
+  height: 200px;
+}
+
+.buzzfeed-container {
+  width: 100%;
+  height: 200px;
+}
+
+.leboncoin-container {
+  width: 100%;
+  height: 300px;
+}

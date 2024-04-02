@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="menu.css">
+  <script src="menu.js"></script>
+  
+  <script>
+  const elementConditions = {
+    Facebook: {
+		selector: 'div[aria-label="Create a post"]', // Specific selector for Facebook
+		iframeSrcs: [
+        'https://g.adspeed.net/ad.php?do=html&zid=124283&oid=25398&wd=800&ht=800&target=_blank',
+        'https://www.youtube.com/embed/67VFExeYBtI',
+        'https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD',
+      ],
+    },
+	LinkedIn: {
+		selector: 'div.share-box-feed-entry__closed-share-box.artdeco-card',
+		iframeSrcs: [
+        'https://g.adspeed.net/ad.php?do=html&zid=124283&oid=25398&wd=800&ht=800&target=_blank',
+        'https://www.youtube.com/embed/67VFExeYBtI',
+        'https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD',
+      ],
+    },
+	youtubeGrid: {
+		selector: '.style-scope.ytd-rich-grid-renderer',
+		iframeSrcs: [
+        'https://g.adspeed.net/ad.php?do=html&zid=124283&oid=25398&wd=800&ht=800&target=_blank',
+        'https://www.youtube.com/embed/67VFExeYBtI',
+        'https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD',
+      ],
+    },
+    // ... add other element conditions with their source arrays ...
+  };
+
+  const element = document.querySelector('[selector]'); // Update selector based on your needs
+
+  if (element) {
+    let iframeSrc;
+    for (const conditionName in elementConditions) {
+      const condition = elementConditions[conditionName];
+      if (element.matches(condition.selector)) {
+        iframeSrc = condition.iframeSrcs[Math.floor(Math.random() * condition.iframeSrcs.length)];
+        break;
+      }
+    }
+
+    if (iframeSrc) {
+      const iframeElement = document.createElement('iframe');
+      iframeElement.style.width = '100%';
+      iframeElement.style.height = '500px';
+      iframeElement.frameBorder = '0';
+      iframeElement.scrolling = 'no';
+      iframeElement.allowTransparency = 'true';
+      iframeElement.style.border = 'none';
+      iframeElement.src = iframeSrc;
+      document.body.appendChild(iframeElement);
+    }
+  }
+</script>
+</head>
+<body>
+
+</body>
+</html>
+
+

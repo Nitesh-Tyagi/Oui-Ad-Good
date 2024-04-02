@@ -1,0 +1,22 @@
+{
+  "extensionName": {
+    "message": "Oui Ad Good",
+    "description": "Advertising Put to Good Use"
+  },
+  "extensionDescription": {
+    "message": "Help Nonprofits and Charities without spending a dime, every time you open a new tab on your internet browser.",
+    "description": "Every time you open a new tab, we will show you banners from Nonprofits, Charities or Social Enterprises, which will help them raise awareness for free. We don't charge them to advertise on our tab. So by using our extension, you give the gift of free advertising. While on our tab, you can use your favorite search engine, add bookmarks/shortcuts, while benefit from beautiful background images."
+  },
+  "enabledStatus": {
+    "message": "Enabled",
+    "description": "Status text when the extension is enabled"
+  },
+  "disabledStatus": {
+    "message": "Disabled",
+    "description": "Status text when the extension is disabled"
+  },
+  "socialForGood": {
+    "message": "Social Media For Good: ",
+    "description": "Text displayed in the extension menu"
+  }
+}
