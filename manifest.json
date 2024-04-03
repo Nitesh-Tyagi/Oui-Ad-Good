@@ -1,47 +1,53 @@
 {
-  "manifest_version": 3,
-  "name": "__MSG_extensionName__",
-  "description": "__MSG_extensionDescription__",
-  "icons": {
-    "16": "img/OAG-Icon-16.png",
-    "32": "img/OAG-Icon-32.png",
-    "48": "img/OAG-Icon-48.png",
-    "128": "img/OAG-Icon-128.png"
-  },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
-  },
-  "background": {
-    "service_worker": "ext-background.js"
-  },
-  "action": {
-    "default_popup": "menu.html",
-    "default_icon": {
-      "16": "img/OAG-Icon-16.png",
-      "48": "img/OAG-Icon-48.png",
-      "128": "img/OAG-Icon-128.png"
-    }
-  },
-  "permissions": ["activeTab", "storage", "tabs"],
-  "default_locale": "en",
-  "version": "2.1",
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.facebook.com/*",
-        "*://*.twitter.com/*",
-        "*://*.linkedin.com/*",
-        "*://*.amazon.fr/*",
-		"*://*.amazon.com/*",
-        "*://*.youtube.com/*",
-		"*://*.ulta.com/*",
-		"*://*.macys.com/*",
-		"*://*.target.com/*",
-		"*://*.sephora.com/*",
-        "*://*.tiktok.com/*"
-      ],
-      "js": ["content.js"],
-      "run_at": "document_end"
-    }
-  ]
-}
+    "manifest_version": 3,
+    "version": "2.1",
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "icons": {
+      "16": "images/OAG-Icon-16.png",
+      "32": "images/OAG-Icon-32.png",
+      "48": "images/OAG-Icon-48.png",
+      "128": "images/OAG-Icon-128.png"
+    },
+    "chrome_url_overrides": {
+        "newtab": "newtab/newtab.html"
+    },
+    "permissions": ["activeTab", "storage", "tabs"],
+    "default_locale": "en",
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "16": "images/OAG-Icon-16.png",
+            "32": "images/OAG-Icon-32.png",
+            "48": "images/OAG-Icon-48.png",
+            "128": "images/OAG-Icon-128.png"
+        }
+    },
+    "content_scripts": [
+        {
+          "matches": ["https://ouiadgood.com/tab/"],
+          "js": ["scripts/ouiadgood.js"]
+        },
+        {
+        "matches": [
+            "*://*.facebook.com/*",
+            "*://*.twitter.com/*",
+            "*://*.linkedin.com/*",
+            "*://*.amazon.fr/*",
+            "*://*.amazon.com/*",
+            "*://*.youtube.com/*",
+            "*://*.ulta.com/*",
+            "*://*.macys.com/*",
+            "*://*.target.com/*",
+            "*://*.sephora.com/*",
+            "*://*.tiktok.com/*"
+          ],
+          "js": ["scripts/content.js"],
+          "run_at": "document_end"
+        }
+    ]
+  }
+  
