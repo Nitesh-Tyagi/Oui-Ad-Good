@@ -30,3 +30,16 @@ chrome.runtime.onInstalled.addListener(function (object) {
   } catch (e) {
     console.error(e)
   }
+
+// background.js
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.action === "fetchJSON") {
+      fetch(chrome.runtime.getURL('../source.json'))
+        .then(response => response.json())
+        .then(data => sendResponse({data: data}))
+        .catch(error => console.error('Error loading the JSON data:', error));
+      return true; // Keep the message channel open for the response
+    }
+  }
+);
