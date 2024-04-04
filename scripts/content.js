@@ -8,11 +8,58 @@ var elementConditions = null;
 chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
   elementConditions = response.data;
   console.log("ElementConditions : ",elementConditions);
+  checkCurrent();
 });
 
+function checkUrl(url, pattern) {
+  const regex = new RegExp(pattern, 'i');
+  return regex.test(url);
+}
 
+function findElement(query){
+  const element = document.querySelector(query);
+  if (element) {
+      return element;
+  }
+  return null;
+}
 
+// TODO : Complete Banner
+// TODO : Add CSS for each website
+function createBanner(obj) {
+  const container = document.createElement('div');
+  container.style.id = "AddedByCE";
+  return container;
+}
 
+function placeElement(toPlace, target, position) {
+  if (position === 'before') {
+    target.parentNode.insertBefore(toPlace, target);
+  } else if (position === 'after') {
+    target.parentNode.insertBefore(toPlace, target.nextSibling);
+  } else {
+    console.error("Position must be 'before' or 'after'.");
+  }
+}
+
+function checkCurrent() {
+  var url = window.location.href;
+  for (const obj of elementConditions) {
+    if(checkUrl(url,obj.target)){
+      console.log("MATCHED : ",obj.target);
+      var targetElement = findElement(obj.selector);
+      if(targetElement) {
+        console.log("FOUND : ",targetElement);
+        var banner = createBanner(obj);
+        if(banner) {
+          placeElement(banner,targetElement,obj.placement)
+        }
+      }
+      else console.log("NOT FOUND!!!");
+      break;
+    }
+  }
+}
 
 
 
