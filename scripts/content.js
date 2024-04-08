@@ -3,7 +3,6 @@ let scriptEnabled = true; // Store the local script status
 let trackingCodesInjected = false; // To check if tracking codes have been injected
 let bannersAdded = false; // To check if banners have been added
 
-// contentScript.js
 var elementConditions = null;
 
 chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
@@ -26,9 +25,6 @@ function findElement(query){
   }
   return null;
 }
-
-// TODO : Complete Banner
-// TODO : Add CSS for each website
 
 function createIframe(src) {
   const iframeElement = document.createElement('iframe');
@@ -58,7 +54,6 @@ function prepareScript(src, callback) {
   }, function(response) {
     if (response && response.success) {
       console.log("Received script content:", response.content);
-      // Execute the callback with the script content
       callback(response.content);
     } else {
       console.error("Failed to fetch script content:", response.error);
@@ -108,7 +103,6 @@ function addBanner(banner,className) {
   else if(banner.type=='script') {
     const scriptElement = document.createElement('script');
     scriptElement.type = 'text/javascript';
-    // scriptElement.src = banner.src;
     
     const ctaButton = createCTAButton(banner.ctaUrl);
     // bannerContainer.appendChild(scriptElement);
@@ -143,10 +137,6 @@ function addBanner(banner,className) {
         Array.from(doc.body.childNodes).forEach(node => {
           bannerContainer.appendChild(node.cloneNode(true));
         });
-
-        // Array.from(doc.head.querySelectorAll('style, link[rel="stylesheet"]')).forEach(style => {
-        //   document.head.appendChild(style.cloneNode(true));
-        // });
       })
       .catch(error => console.error('Error fetching content:', error));
   }    
