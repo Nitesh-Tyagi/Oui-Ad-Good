@@ -1,3 +1,6 @@
+var Source = 'https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/source.json';
+
+
 // https://developer.chrome.com/extensions/runtime#event-onInstalled
 chrome.runtime.onInstalled.addListener(function (object) {
     try {
@@ -43,3 +46,60 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//   if (request.action === "fetchJSON") {
+//     chrome.storage.sync.get(["OUI_AD_GOOD_LastDate", "OUI_AD_GOOD_Source"], function(items) {
+//       const lastDate = new Date(items.OUI_AD_GOOD_LastDate);
+//       const currentDate = new Date();
+//       const daysDiff = (currentDate - lastDate) / (1000 * 3600 * 24); // Difference in days
+
+//       // Check if LastDate is not found or more than/equal to 15 days
+//       if (!items.OUI_AD_GOOD_LastDate || daysDiff >= 15) {
+//         fetch(Source)
+//           .then(response => {
+//             if (!response.ok) {
+//               throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//           })
+//           .then(data => {
+//             // Store the fetched data and current date in sync storage
+//             chrome.storage.sync.set({
+//               OUI_AD_GOOD_Source: data,
+//               OUI_AD_GOOD_LastDate: currentDate.toISOString()
+//             }, function() {
+//               sendResponse({data: data});
+//             });
+//           })
+//           .catch(error => {
+//             console.error('Could not fetch the JSON:', error);
+//             sendResponse({error: error.toString()});
+//           });
+//       } else {
+//         // Less than 15 days, just return the stored value
+//         sendResponse({data: items.OUI_AD_GOOD_Source});
+//       }
+//     });
+//     return true; // Indicate async response
+//   }
+// });
+
+
+
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+  if (request.action == "fetchScript") {
+
+    try {
+      const response = await fetch(request.src);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const content = await response.text();
+      sendResponse({ success: true, content });
+    } catch (error) {
+      console.error('Fetch error:', error);
+      sendResponse({ success: false, error: error.message });
+    }
+
+    return true; // Keep the message channel open for the response
+  }
+});
+

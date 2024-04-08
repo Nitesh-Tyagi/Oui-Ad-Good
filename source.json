@@ -1,9 +1,17 @@
 [
     {
         "target": "facebook",
-        "selector": "div[aria-label=\"Create a post\"]",
-        "placement": "after",
+        "selector": "div[class=\"x1hc1fzr x1unhpq9 x6o7n8i\"]",
+        "placement": "before",
         "banners": [
+            {
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
             {
                 "type": "script",
                 "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
@@ -24,14 +32,31 @@
     },
     {
         "target": "twitter",
-        "selector": "div[aria-label=\"Timeline: Your Home Timeline\"]",
+        "selector": "div[data-testid=\"cellInnerDiv\"]",
         "placement": "before",
         "banners": [
             {
-                "src": "https://example.com/banner2.html",
-                "ctaUrl": "https://example.com/learn-more-twitter",
-                "width": "80%",
-                "height": "250px",
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "script",
+                "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "iframeSrc",
+                "src": "https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
                 "css": {}
             }
         ]
@@ -42,11 +67,19 @@
         "placement": "after",
         "banners": [
             {
-                "type": "iframeSrc",
-                "src": "https://www.youtube.com/embed/67VFExeYBtI",
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
                 "ctaUrl": "https://example.com/learn-more-youtube",
                 "width": "100%",
-                "height": "350px",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "script",
+                "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
                 "css": {}
             },
             {
@@ -54,7 +87,7 @@
                 "src": "https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD",
                 "ctaUrl": "https://example.com/learn-more-youtube",
                 "width": "100%",
-                "height": "350px",
+                "height": "300px",
                 "css": {}
             }
         ]
@@ -65,41 +98,89 @@
         "placement": "before",
         "banners": [
             {
-                "type": "iframeSrc",
-                "src": "https://ouiadgood.com/img/morphe_bn.jpeg",
-                "ctaUrl": "https://example.com/learn-more-ulta",
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
+                "ctaUrl": "https://example.com/learn-more-youtube",
                 "width": "100%",
-                "height": "200px",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "script",
+                "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "iframeSrc",
+                "src": "https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
                 "css": {}
             }
         ]
     },
     {
         "target": "macys",
-        "selector": "#bd",
+        "selector": "#row_0",
         "placement": "before",
         "banners": [
             {
-                "type": "iframeSrc",
-                "src": "https://ouiadgood.com/img/morphe_bn.jpeg",
-                "ctaUrl": "https://example.com/learn-more-macys",
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
+                "ctaUrl": "https://example.com/learn-more-youtube",
                 "width": "100%",
-                "height": "350px",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "script",
+                "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "iframeSrc",
+                "src": "https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
                 "css": {}
             }
         ]
     },
     {
         "target": "amazon",
-        "selector": "#gw-layout",
+        "selector": "#gw-card-layout",
         "placement": "before",
         "banners": [
             {
-                "type": "iframeSrc",
-                "src": "https://ouiadgood.com/img/morphe_bn.jpeg",
-                "ctaUrl": "https://example.com/learn-more-macys",
+                "type": "html",
+                "src": "https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/index.html",
+                "ctaUrl": "https://example.com/learn-more-youtube",
                 "width": "100%",
-                "height": "350px",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "script",
+                "src": "https://g.adspeed.net/ad.php?do=js&zid=124283&oid=25398&wd=-1&ht=-1&target=_blank",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
+                "css": {}
+            },
+            {
+                "type": "iframeSrc",
+                "src": "https://www.youtube.com/embed/HS_tlLpMK6I?si=2zMab-0fDNmEEMhD",
+                "ctaUrl": "https://example.com/learn-more-youtube",
+                "width": "100%",
+                "height": "300px",
                 "css": {}
             }
         ]

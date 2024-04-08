@@ -1,14 +1,17 @@
-// let bannerContainer = null;
-// let scriptEnabled = true; // Store the local script status
-// let trackingCodesInjected = false; // To check if tracking codes have been injected
-// let bannersAdded = false; // To check if banners have been added
+let bannerContainer = null;
+let scriptEnabled = true; // Store the local script status
+let trackingCodesInjected = false; // To check if tracking codes have been injected
+let bannersAdded = false; // To check if banners have been added
 
 // contentScript.js
 var elementConditions = null;
+
 chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
   elementConditions = response.data;
   console.log("ElementConditions : ",elementConditions);
-  checkCurrent();
+  if(scriptEnabled) {
+    checkCurrent();
+  }
 });
 
 function checkUrl(url, pattern) {
@@ -17,26 +20,159 @@ function checkUrl(url, pattern) {
 }
 
 function findElement(query){
-  const element = document.querySelector(query);
-  if (element) {
-      return element;
+  const elements = document.querySelectorAll(query);
+  if (elements[0]) {
+      return elements[0];
   }
   return null;
 }
 
 // TODO : Complete Banner
 // TODO : Add CSS for each website
-function createBanner(obj) {
-  const container = document.createElement('div');
-  container.style.id = "AddedByCE";
-  return container;
+
+function createIframe(src) {
+  const iframeElement = document.createElement('iframe');
+  iframeElement.frameBorder = '0';
+  iframeElement.scrolling = 'no';
+  iframeElement.allowTransparency = 'true';
+  iframeElement.classList.add('iframe');
+  iframeElement.src = src;
+  return iframeElement;
 }
 
-function placeElement(toPlace, target, position) {
+function createCTAButton(ctaUrl) {
+  const ctaButtonContainer = document.createElement('div');
+  ctaButtonContainer.style.width = '100%';
+  const ctaButton = document.createElement('button');
+  ctaButton.textContent = 'Learn More';
+  ctaButton.classList.add('ctaButton');
+  ctaButton.addEventListener('click', () => window.open(ctaUrl, '_blank'));
+  ctaButtonContainer.appendChild(ctaButton);
+  return ctaButtonContainer;
+}
+
+function prepareScript(src, callback) {
+  chrome.runtime.sendMessage({
+    action: "fetchScript",
+    src: src
+  }, function(response) {
+    if (response && response.success) {
+      console.log("Received script content:", response.content);
+      // Execute the callback with the script content
+      callback(response.content);
+    } else {
+      console.error("Failed to fetch script content:", response.error);
+    }
+  });
+}
+
+
+function addBanner(banner,className) {
+  if(banner.type=='iframeSrc') {
+    if(className=='linkedin' || className=='macys' || className=='ulta' || className=='amazon'){
+      const container = document.createElement('div');
+      container.classList.add('container');
+
+      if(className=='linkedin') {
+        var nameSpan = document.createElement('div');
+        nameSpan.classList.add('nameSpan');
+        nameSpan.innerText = 'Oui Ad Good';
+        container.appendChild(nameSpan);
+      }
+
+      const iframeElement = createIframe(banner.src);
+      const ctaButton = createCTAButton(banner.ctaUrl);
+      
+      container.appendChild(iframeElement);
+      container.appendChild(ctaButton);
+      bannerContainer.appendChild(container);
+    }
+    else {
+      const container = document.createElement('div');
+      container.classList.add('container');
+
+      if(className=='facebook') {
+        var nameSpan = document.createElement('div');
+        nameSpan.classList.add('nameSpan');
+        nameSpan.innerText = 'Oui Ad Good';
+        container.appendChild(nameSpan);
+      }
+
+      const iframeElement = createIframe(banner.src);
+      const ctaButton = createCTAButton(banner.ctaUrl);
+      container.appendChild(iframeElement);
+      container.appendChild(ctaButton);
+      bannerContainer.appendChild(container);
+    }
+  }
+  else if(banner.type=='script') {
+    const scriptElement = document.createElement('script');
+    scriptElement.type = 'text/javascript';
+    // scriptElement.src = banner.src;
+    
+    const ctaButton = createCTAButton(banner.ctaUrl);
+    // bannerContainer.appendChild(scriptElement);
+    // bannerContainer.appendChild(ctaButton);
+  }
+  // else if(banner.type=='script') {
+  //   console.log("PREPARING SCRIPT");
+  //   prepareScript(banner.src, function(scriptContent) {
+  //     console.log("Script Content Received: ", scriptContent);
+
+
+  //     // const scriptElement = document.createElement('script');
+  //     // scriptElement.textContent = scriptContent; // Use textContent for inline script
+  //     // container.appendChild(scriptElement); // Assumes `container` is defined and accessible
+  
+  //     // // Optionally append the CTA button as before
+  //     // const ctaButton = createCTAButton(banner.ctaUrl);
+  //     // container.appendChild(ctaButton);
+  //   });
+  //   console.log("PREPARED SCRIPT");
+  // }
+  
+  else if(banner.type=='html') {
+    const contentUrl = banner.src;
+
+    fetch(contentUrl)
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+    
+        Array.from(doc.body.childNodes).forEach(node => {
+          bannerContainer.appendChild(node.cloneNode(true));
+        });
+
+        // Array.from(doc.head.querySelectorAll('style, link[rel="stylesheet"]')).forEach(style => {
+        //   document.head.appendChild(style.cloneNode(true));
+        // });
+      })
+      .catch(error => console.error('Error fetching content:', error));
+  }    
+}
+
+
+function createBanner(obj, className) {
+  bannerContainer = document.createElement('div');
+  bannerContainer.classList.add('OuiAdGood_Container');
+  bannerContainer.classList.add(className);
+
+  for (banner of obj.banners) {
+    addBanner(banner, className);
+  }
+
+  console.log("CONTAINER : ",bannerContainer);
+  return bannerContainer;
+}
+
+function placeElement(target, position) {
+  if(bannerContainer)
+
   if (position === 'before') {
-    target.parentNode.insertBefore(toPlace, target);
+    target.parentNode.insertBefore(bannerContainer, target);
   } else if (position === 'after') {
-    target.parentNode.insertBefore(toPlace, target.nextSibling);
+    target.parentNode.insertBefore(bannerContainer, target.nextSibling);
   } else {
     console.error("Position must be 'before' or 'after'.");
   }
@@ -50,9 +186,9 @@ function checkCurrent() {
       var targetElement = findElement(obj.selector);
       if(targetElement) {
         console.log("FOUND : ",targetElement);
-        var banner = createBanner(obj);
-        if(banner) {
-          placeElement(banner,targetElement,obj.placement)
+        createBanner(obj,obj.target);
+        if(bannerContainer) {
+          placeElement(targetElement,obj.placement)
         }
       }
       else console.log("NOT FOUND!!!");
@@ -62,106 +198,35 @@ function checkCurrent() {
 }
 
 
+chrome.storage.sync.get(['enabled'], function (result) {
+  scriptEnabled = result.enabled; // Update local status from storage initially
+  if (scriptEnabled && elementConditions) {
+    // injectTrackingCodes();
+    // addImageInIframeWithConditions();
+    checkCurrent();
+  }
+});
 
-// chrome.storage.sync.get(['enabled'], function (result) {
-//   scriptEnabled = result.enabled; // Update local status from storage initially
-//   if (scriptEnabled) {
-//     injectTrackingCodes();
-//     addImageInIframeWithConditions();
-//   }
-// });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === 'toggleScript') {
+    scriptEnabled = request.enabled; // Update local status based on message
+    if (scriptEnabled && elementConditions) {
+      // injectTrackingCodes();
+      // addImageInIframeWithConditions();
+      checkCurrent();
+    } else {
+      removeBanner();
+    }
+  }
+});
 
-// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-//   if (request.action === 'toggleScript') {
-//     scriptEnabled = request.enabled; // Update local status based on message
-//     if (scriptEnabled) {
-//       injectTrackingCodes();
-//       addImageInIframeWithConditions();
-//     } else {
-//       removeBanner();
-//     }
-//   }
-// });
-
-
-
-
-// function addImageInIframeWithConditions() {
-//   if (!bannersAdded) {
-//     Object.entries(elementConditions).forEach(([conditionName, condition]) => {
-//       const element = document.querySelector(condition.selector);
-
-//       if (element && scriptEnabled) {
-//         const containerDiv = createContainerDiv();
-
-//         condition.iframeSrc.forEach(src => {
-//           const iframeElement = createIframe(src.src); // Create an iframe for each source
-//           containerDiv.appendChild(iframeElement); // Append each iframe to the container
-
-//           const ctaButton = createCTAButton(src.ctaUrl); // Create a "Learn More" button
-//           containerDiv.appendChild(ctaButton); // Append the button after each iframe
-//         });
-
-//         // Placement
-//         if (condition.placement === 'before') {
-//           element.parentNode.insertBefore(containerDiv, element);
-//         } else {
-//           element.parentNode.insertBefore(containerDiv, element.nextSibling);
-//         }
-
-//         // Store the container div reference
-//         bannerContainer = containerDiv;
-//       }
-//     });
-//     bannersAdded = true; // Mark banners as added
-//   }
-// }
-
-// function createContainerDiv() {
-//   const containerDiv = document.createElement('div');
-//   containerDiv.style.display = 'flex';
-//   containerDiv.style.flexDirection = 'column';
-//   containerDiv.style.alignItems = 'center';
-//   return containerDiv;
-// }
-
-// function createIframe(src) {
-//   const iframeElement = document.createElement('iframe');
-//   iframeElement.style.width = '100%';
-//   iframeElement.style.height = '380px';
-//   iframeElement.frameBorder = '0';
-//   iframeElement.scrolling = 'no';
-//   iframeElement.style.margin = '10px';
-//   iframeElement.allowTransparency = 'true';
-//   iframeElement.style.border = 'none';
-//   iframeElement.src = src;
-//   return iframeElement;
-// }
-
-// function createCTAButton(ctaUrl) {
-//   const ctaButtonContainer = document.createElement('div');
-//   ctaButtonContainer.style.width = '100%';
-//   const ctaButton = document.createElement('button');
-//   ctaButton.textContent = 'Learn More';
-//   ctaButton.style.backgroundColor = '#ffffff';
-//   ctaButton.style.color = 'black';
-//   ctaButton.style.border = 'none';
-//   ctaButton.style.padding = '10px 20px';
-//   ctaButton.style.fontWeight = 'bold';
-//   ctaButton.style.borderRadius = '5px';
-//   ctaButton.style.cursor = 'pointer';
-//   ctaButton.addEventListener('click', () => window.open(ctaUrl, '_blank'));
-//   ctaButtonContainer.appendChild(ctaButton);
-//   return ctaButtonContainer;
-// }
-
-// function removeBanner() {
-//   if (bannerContainer && bannerContainer.parentNode) {
-//     bannerContainer.parentNode.removeChild(bannerContainer);
-//     bannerContainer = null;
-//     bannersAdded = false; // Reset banner addition flag
-//   }
-// }
+function removeBanner() {
+  if (bannerContainer && bannerContainer.parentNode) {
+    bannerContainer.parentNode.removeChild(bannerContainer);
+    bannerContainer = null;
+    bannersAdded = false; // Reset banner addition flag
+  }
+}
 
 // function injectTrackingCodes() {
 //   if (!trackingCodesInjected) {

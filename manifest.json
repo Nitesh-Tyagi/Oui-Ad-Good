@@ -12,7 +12,10 @@
     "chrome_url_overrides": {
         "newtab": "newtab/newtab.html"
     },
-    "permissions": ["activeTab", "storage", "tabs"],
+    "permissions": ["activeTab", "storage", "tabs","scripting"],
+    "host_permissions": [
+      "https://g.adspeed.net/*"
+    ],
     "default_locale": "en",
     "background": {
         "service_worker": "scripts/background.js"
@@ -36,7 +39,7 @@
             "*://*.facebook.com/*",
             "*://*.twitter.com/*",
             "*://*.linkedin.com/*",
-            "*://*.amazon.fr/*",
+            "*://*.amazon.in/*",
             "*://*.amazon.com/*",
             "*://*.youtube.com/*",
             "*://*.ulta.com/*",
@@ -46,6 +49,7 @@
             "*://*.tiktok.com/*"
           ],
           "js": ["scripts/content.js"],
+          "css": ["style.css"],
           "run_at": "document_end"
         }
     ]
