@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('toggleButton');
     const statusText = document.getElementById('statusText');
-  
+     
     // Get the current status from storage
     chrome.storage.sync.get(['enabled'], function (result) {
       toggleButton.checked = result.enabled;
