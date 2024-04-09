@@ -10,7 +10,6 @@ toggleSwitch.addEventListener('change', function () {
     const enabled = toggleSwitch.checked;
 
     chrome.runtime.sendMessage({action: "updateEnabledState", enabled: enabled}, function(response) {
-        // console.log("Update response:", response.message);
         updateStatusText(enabled);
     });
 });
