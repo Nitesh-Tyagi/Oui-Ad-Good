@@ -1,3 +1,5 @@
+/* globals chrome */
+
 const NEW_TAB_URL = 'https://ouiadgood.com/tab/'
 try {
   chrome.tabs.getCurrent((tab) => {
