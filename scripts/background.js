@@ -1,9 +1,39 @@
 var Source = 'https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/source.json';
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "getStatus") {
+    chrome.storage.sync.get(['enabled'], function(result) {
+      sendResponse({enabled: result.enabled});
+    });
+    return true;
+  }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "updateEnabledState") {
+    chrome.storage.sync.set({enabled: request.enabled}, () => {
+      console.log('Enabled state updated to:', request.enabled);
+      
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          chrome.tabs.sendMessage(tab.id, { action: 'toggleScript', enabled: request.enabled });
+        });
+      });
+
+      sendResponse({message: "Enabled state and content scripts updated successfully."});
+    });
+    return true;
+  }
+});
+        
+
 
 // https://developer.chrome.com/extensions/runtime#event-onInstalled
 chrome.runtime.onInstalled.addListener(function (object) {
     try {
+      chrome.storage.sync.set({enabled: true}, () => {
+        console.log('The extension is installed and the enabled status is set to true.');
+      });
       // On install, open a welcome tab.
       if (object.reason === chrome.runtime.OnInstalledReason.INSTALL) {
         const postInstallURL = 'https://ouiadgood.com/tab/'

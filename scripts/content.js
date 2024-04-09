@@ -5,9 +5,26 @@ let bannersAdded = false; // To check if banners have been added
 
 var elementConditions = null;
 
+chrome.runtime.sendMessage({action: "getStatus"}, function(response) {
+  scriptEnabled = response.enabled;
+});
+
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === 'toggleScript') {
+    scriptEnabled = request.enabled;
+    if (scriptEnabled && elementConditions) {
+      checkCurrent();
+    } else {
+      removeBanner();
+    }
+  }
+});
+
 chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
   elementConditions = response.data;
   console.log("ElementConditions : ",elementConditions);
+  console.log("FETCHED JSON, SCRIPT ENABLED ::: ",scriptEnabled);
   if(scriptEnabled) {
     checkCurrent();
   }
@@ -188,27 +205,6 @@ function checkCurrent() {
 }
 
 
-chrome.storage.sync.get(['enabled'], function (result) {
-  scriptEnabled = result.enabled; // Update local status from storage initially
-  if (scriptEnabled && elementConditions) {
-    // injectTrackingCodes();
-    // addImageInIframeWithConditions();
-    checkCurrent();
-  }
-});
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action === 'toggleScript') {
-    scriptEnabled = request.enabled; // Update local status based on message
-    if (scriptEnabled && elementConditions) {
-      // injectTrackingCodes();
-      // addImageInIframeWithConditions();
-      checkCurrent();
-    } else {
-      removeBanner();
-    }
-  }
-});
 
 function removeBanner() {
   if (bannerContainer && bannerContainer.parentNode) {

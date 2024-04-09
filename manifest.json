@@ -12,7 +12,7 @@
     "chrome_url_overrides": {
         "newtab": "popup/newtab.html"
     },
-    "permissions": ["activeTab", "storage", "tabs","scripting"],
+    "permissions": ["activeTab", "storage", "tabs","scripting","activeTab"],
     "host_permissions": [
       "https://g.adspeed.net/*"
     ],
@@ -30,6 +30,10 @@
         }
     },
     "content_scripts": [
+        {
+          "matches": ["https://ouiadgood.com/tab/"],
+          "js": ["scripts/ouiadgood.js"]
+        },
         {
         "matches": [
             "*://*.facebook.com/*",
