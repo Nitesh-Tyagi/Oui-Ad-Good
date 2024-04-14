@@ -348,85 +348,85 @@ function removeBanner() {
   }
 }
 
-// function injectTrackingCodes() {
-//   if (!trackingCodesInjected) {
-//     injectFacebookPixel();
-//     injectGoogleAnalytics();
-//     trackingCodesInjected = true; // Mark tracking codes as injected
-//   }
-// }
+function injectTrackingCodes() {
+  if (!trackingCodesInjected) {
+    injectFacebookPixel();
+    injectGoogleAnalytics();
+    trackingCodesInjected = true; // Mark tracking codes as injected
+  }
+}
 
-// function injectGoogleTagManager() {
-//   injectGTMHead();
-//   injectGTMBody();
-// }
+function injectGoogleTagManager() {
+  injectGTMHead();
+  injectGTMBody();
+}
 
-// function injectGTMHead() {
-//   if (!document.getElementById('gtmHead')) {
-//     const script = document.createElement('script');
-//     script.id = 'gtmHead';
-//     script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-//     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-//     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-//     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-//     })(window,document,'script','dataLayer','GTM-W2V9LSSZ');`;
-//     document.head.appendChild(script);
-//   }
-// }
+function injectGTMHead() {
+  if (!document.getElementById('gtmHead')) {
+    const script = document.createElement('script');
+    script.id = 'gtmHead';
+    script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W2V9LSSZ');`;
+    document.head.appendChild(script);
+  }
+}
 
-// function injectGTMBody() {
-//   if (!document.getElementById('gtmBody')) {
-//     const noscript = document.createElement('noscript');
-//     noscript.id = 'gtmBody';
-//     noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2V9LSSZ"
-//     height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-//     document.body.insertBefore(noscript, document.body.firstChild);
-//   }
-// }
+function injectGTMBody() {
+  if (!document.getElementById('gtmBody')) {
+    const noscript = document.createElement('noscript');
+    noscript.id = 'gtmBody';
+    noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2V9LSSZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+    document.body.insertBefore(noscript, document.body.firstChild);
+  }
+}
 
-// chrome.storage.sync.get(['enabled'], function (result) {
-//   scriptEnabled = result.enabled;
-//   if (scriptEnabled) {
-//     injectTrackingCodes();
-//     injectGoogleTagManager(); // Add this line to inject GTM when your script runs
-//     addImageInIframeWithConditions();
-//   }
-// });
+chrome.storage.sync.get(['enabled'], function (result) {
+  scriptEnabled = result.enabled;
+  if (scriptEnabled) {
+    injectTrackingCodes();
+    injectGoogleTagManager(); // Add this line to inject GTM when your script runs
+    addImageInIframeWithConditions();
+  }
+});
 
 // // Include this call in your existing chrome.runtime.onMessage.addListener callback as well.
 
 
-// function injectFacebookPixel() {
-//   if (!document.getElementById('fbPixelScript')) { // Check if the FB Pixel script is already added
-//     // Facebook Pixel script
-//     const fbPixelScript = document.createElement('script');
-//     fbPixelScript.id = 'fbPixelScript'; // Assign an ID to the script for identification
-//     fbPixelScript.textContent = `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '492030411555076');fbq('track', 'PageView');`;
-//     document.head.appendChild(fbPixelScript);
+function injectFacebookPixel() {
+  if (!document.getElementById('fbPixelScript')) { // Check if the FB Pixel script is already added
+    // Facebook Pixel script
+    const fbPixelScript = document.createElement('script');
+    fbPixelScript.id = 'fbPixelScript'; // Assign an ID to the script for identification
+    fbPixelScript.textContent = `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '492030411555076');fbq('track', 'PageView');`;
+    document.head.appendChild(fbPixelScript);
   
-//     // Facebook Pixel no-script
-//     const fbPixelNoscript = document.createElement('noscript');
-//     const fbPixelImg = document.createElement('img');
-//     fbPixelImg.setAttribute('height', '1');
-//     fbPixelImg.setAttribute('width', '1');
-//     fbPixelImg.setAttribute('style', 'display:none');
-//     fbPixelImg.setAttribute('src', 'https://www.facebook.com/tr?id=492030411555076&ev=PageView&noscript=1');
-//     fbPixelNoscript.appendChild(fbPixelImg);
-//     document.head.appendChild(fbPixelNoscript);
-//   }
-// }
+    // Facebook Pixel no-script
+    const fbPixelNoscript = document.createElement('noscript');
+    const fbPixelImg = document.createElement('img');
+    fbPixelImg.setAttribute('height', '1');
+    fbPixelImg.setAttribute('width', '1');
+    fbPixelImg.setAttribute('style', 'display:none');
+    fbPixelImg.setAttribute('src', 'https://www.facebook.com/tr?id=492030411555076&ev=PageView&noscript=1');
+    fbPixelNoscript.appendChild(fbPixelImg);
+    document.head.appendChild(fbPixelNoscript);
+  }
+}
 
-// function injectGoogleAnalytics() {
-//   if (!document.getElementById('gaScript')) { // Check if the GA script is already added
-//     // Google Analytics script
-//     const gaScript = document.createElement('script');
-//     gaScript.id = 'gaScript'; // Assign an ID to the script for identification
-//     gaScript.async = true;
-//     gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-95QCLZH6ER';
-//     document.head.appendChild(gaScript);
+function injectGoogleAnalytics() {
+  if (!document.getElementById('gaScript')) { // Check if the GA script is already added
+    // Google Analytics script
+    const gaScript = document.createElement('script');
+    gaScript.id = 'gaScript'; // Assign an ID to the script for identification
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-95QCLZH6ER';
+    document.head.appendChild(gaScript);
 
-//     const gaScript2 = document.createElement('script');
-//     gaScript2.textContent = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-95QCLZH6ER');`;
-//     document.head.appendChild(gaScript2);
-//   }
-// }
+    const gaScript2 = document.createElement('script');
+    gaScript2.textContent = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-95QCLZH6ER');`;
+    document.head.appendChild(gaScript2);
+  }
+}
