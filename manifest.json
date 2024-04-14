@@ -52,6 +52,12 @@
           "css": ["style.css"],
           "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        {
+          "resources": ["images/*"],
+          "matches": ["<all_urls>"]
+        }
     ]
   }
   

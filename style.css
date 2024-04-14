@@ -1,17 +1,67 @@
-.facebook .OuiAdGood_Container {
+/* .OuiAdGood_Container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+} */
+
+#facebook .OuiAdGood_Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
 }
 
-.facebook .container {
+#facebook .container {
     background-color: #242526;
     margin: 10px 0px;
     border-radius: 7px;
     padding-top: 4px;
+    width: 500px;
 }
 
-.facebook .iframe {
+#facebook .headerContainer{
+    display:flex;
+    justify-content: start;
+    align-items: start;
+    gap: 2px;
+    margin:6px 0px 6px 6px;
+}
+
+#facebook img {
+    width: auto; /* Maintains aspect ratio */
+    min-width: 100%; /* Minimum width to cover container */
+    height: 100%; /* Height to cover container */
+    object-fit: cover;
+}
+
+#facebook .imageContainer{
+    background-color: blue;
+    margin: 3px 0px 0px 3px;    
+    border: 1px solid black ;
+    border-radius: 50%; /* This makes the container round */
+    overflow: hidden; /* This hides anything outside the round container */
+    display: flex; /* Centers the image horizontally */
+    justify-content: center; /* Align content in the center horizontally */
+    align-items: center; 
+    height: 34px;
+    width: 34px;
+}
+
+#facebook .nameSpan {
+    /* font-weight: bold; */
+    color: #ffffff;
+    height: 30px;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 1px;
+    margin-left: 3px;
+    
+}
+
+
+#facebook .iframe {
     width: 100%;
     height: 380px;
     border: none;
@@ -19,156 +69,213 @@
     padding: 0px;
 }
 
-.facebook .ctaButton {
+#facebook .ctaButtonContainer{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    
+}
+
+#facebook .ctaButton {
     background-color: #3A3B3C;
     color: #B8BBBF;
     border: none;
     margin-top: 4px;
-    margin-left: 363px;
-    margin-bottom: 8px;
-    height: 40px;
-    width: 130px;
+    margin:10px 10px;
+    height: 35px;
+    width: 90px;
     font-weight: bold;
     border-radius: 7px;
     cursor: pointer;
 }
 
-.facebook .nameSpan {
-    /* font-weight: bold; */
-    color: #ffffff;
-    height: 30px;
-    font-size: medium;
-    margin-top: 5px;
-    margin-bottom: 1px;
-    margin-left: 12px;
-    padding-left: 12px;
-}
 
-.facebook .ctaButton:hover {
+#facebook .ctaButton:hover {
     background-color: #272829;
 }
-
-.linkedin .OuiAdGood_Container {
+/* 
+.OuiAdGood_Container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+} */
+
+
+#linkedin .OuiAdGood_Container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
     background-color: #ff0000;
 }
 
-.linkedin .container {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 12px;
-    padding-bottom: 6px;
-
-    margin-bottom: 10px;
-    border-radius: 8px;
+#linkedin .container {
+    background-color: #ffffff;
+    margin: 10px 0px;
+    border-radius: 7px;
+    padding-top: 4px;
+    /* width: 30vw; */
 }
 
-.linkedin .iframe {
+#linkedin .headerContainer{
+    display:flex;
+    justify-content: start;
+    align-items: start;
+    /* gap: 2px; */
+    margin:6px 0px 6px 6px;
+}
+
+#linkedin img {
+    width: auto; /* Maintains aspect ratio */
+    min-width: 100%; /* Minimum width to cover container */
+    height: 100%; /* Height to cover container */
+    object-fit: cover;
+}
+
+#linkedin .imageContainer{
+    background-color: blue;
+    margin: 3px 0px 0px 3px;    
+    border: 1px solid black ;
+    border-radius: 50%; 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 34px;
+    width: 34px;
+}
+
+#linkedin .nameSpan {
+    /* font-weight: bold; */
+    color: black;
+    height: 30px;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 1px;
+    margin-left: 3px;
+    
+}
+
+
+#linkedin .iframe {
     width: 100%;
     height: 380px;
     border: none;
-    background-color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+
 }
 
-.linkedin .ctaButton {
-    background-color: #ffffff;
-    color: #5E5E5E;
-    border: none;
-    margin-left: 6px;
-    margin-bottom: 0px;
-    padding: 8px 28px;
+#linkedin .ctaButtonContainer{
+    display: flex;
+    justify-content: end;
+    align-items: center
+    
+}
+
+#linkedin .ctaButton {
+    color: #0077B5;
+    border: 1px solid #0077B5;
+    border-radius: 70px ;
+    margin-top: 4px;
+    margin:10px 10px;
+    height: 30px;
+    width: 100px;
     font-weight: bold;
-    border-radius: 5px;
     cursor: pointer;
 }
-.linkedin .ctaButton:hover {
-    background-color: #EBEBEB;
+
+
+#linkedin .ctaButton:hover {
+    color: white;
+    background-color: #0077B5;
 }
 
-.linkedin .nameSpan {
-    /* background-color: #ff0000; */
-    font-weight: bold;
-    font-size: medium;
-    color: #5E5E5E;
-    height: 30px;
-    margin-top: 0px;
-    margin-bottom: 6px;
-    margin-left: 12px;
-    padding-left: 12px;
-}
-
-.macys .container {
-    margin-top: 0vw;
-    margin-bottom: 4vw;
-    margin-left: 2.5vw;
-    margin-right: 2.5vw;
-}
-
-.macys .iframe {
-    width: 100%;
-    height: 380px;
-    border: none;
-    background-color: #ffffff;
-}
-
-.macys .ctaButton {
-    display: none;
-}
-
-.macys .nameSpan {
-    display: none;
-}
-
-.ulta .container {
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    margin-left: 12.5vw;
-    margin-right: 12.5vw;
-}
-
-.ulta .iframe {
-    width: 100%;
-    height: 380px;
-    border: none;
-    background-color: #ffffff;
-}
-
-.ulta .ctaButton {
-    display: none;
-}
-
-.ulta .nameSpan {
-    display: none;
-}
-
-.amazon .OuiAdGood_Container {
+/* #macys .OuiAdGood_Container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 300px;
+    justify-content: center;
+} */
+
+#macys .container {
+    margin-top: 0vw;
+    margin-bottom: 4vw;
+    width: 100vw;
+    /* max-width: 1440px; */
 }
 
-.amazon .container {
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    margin-left: 1.2vw;
-    margin-right: 1.2vw;
-}
-
-.amazon .iframe {
+#macys .iframe {
     width: 100%;
     height: 380px;
     border: none;
     background-color: #ffffff;
 }
 
-.amazon .ctaButton {
+#macys .ctaButton {
     display: none;
 }
 
-.amazon .nameSpan {
+#macys .nameSpan {
+    display: none;
+}
+
+/* #ulta .OuiAdGood_Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+#ulta .container {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    width: 74vw;
+    /* max-width: 1131px; */
+}
+
+#ulta .iframe {
+    width: 100%;
+    height: 380px;
+    border: none;
+    background-color: #ffffff;
+}
+
+#ulta .ctaButton {
+    display: none;
+}
+
+#ulta .nameSpan {
+    display: none;
+}
+
+#amazon .OuiAdGood_Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#amazon .container {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    width: 95vw;
+    min-width: 960px;
+}
+
+#amazon .iframe {
+    width: 100%;
+    height: 380px;
+    border: none;
+    background-color: #ffffff;
+}
+
+#amazon .ctaButton {
+    display: none;
+}
+
+#amazon .nameSpan {
     display: none;
 }
 
