@@ -9,7 +9,7 @@ chrome.runtime.sendMessage({action: "getStatus"}, function(response) {
   scriptEnabled = response.enabled;
 });
 
-
+// ASYNC : CHECK for SCRIPT ENABLED ( POPUP )
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === 'toggleScript') {
     scriptEnabled = request.enabled;
@@ -21,6 +21,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
+// ASYNC : LOAD SOURCE.JSON, then begin 'checkCurrent' flow
 chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
   elementConditions = response.data;
   console.log("ElementConditions : ",elementConditions);
@@ -30,11 +31,14 @@ chrome.runtime.sendMessage({action: "fetchJSON"}, function(response) {
   }
 });
 
+// UTILITY : Match TARGET URL to TARGET website
 function checkUrl(url, pattern) {
   const regex = new RegExp(pattern, 'i');
   return regex.test(url);
 }
 
+// Target the first element matching the query
+// TODO : In future can consider shifting to x-path instead of querySelector
 function findElement(query){
   const elements = document.querySelectorAll(query);
   if (elements[0]) {
@@ -113,6 +117,7 @@ function createIframeHW(src, containerWidth, containerHeight) {
   return iframeElement;
 }
 
+// CREATE CallToAction Button
 function createCTAButton(ctaUrl) {
   const ctaButtonContainer = document.createElement('div');
   ctaButtonContainer.classList.add('ctaButtonContainer')
@@ -139,7 +144,14 @@ function prepareScript(src, callback) {
   });
 }
 
-
+// CREATE BANNERS
+// banner = {'type','src','ctaUrl','width','height','css'}
+// className relevant to TARGET website
+// 'height','css' don't hold any relevance right now
+// add any random value to 'width', for specific iframe cases
+// CONSIDER modifying the functionality of this function to better fit TARGET websites
+// Functionality for type:script commented out, to be added later
+// CONSIDER editing functionality for type:html to better fit source HTML
 function addBanner(banner,className,parentWidth,parentHeight) {
   // IFRAMESRC
   if(banner.type=='iframeSrc') {
@@ -148,11 +160,9 @@ function addBanner(banner,className,parentWidth,parentHeight) {
       container.classList.add('container');
 
       if(className=='linkedin') {
-         // adding a parent container for image
          var headerContainer = document.createElement('div');
          headerContainer.classList.add('headerContainer');
- 
-         //adding a container for image 
+  
          var imageContainer = document.createElement('div');
          imageContainer.classList.add('imageContainer');
  
@@ -171,11 +181,6 @@ function addBanner(banner,className,parentWidth,parentHeight) {
          container.appendChild(headerContainer);
       }
 
-      // if(className=='macys'){
-      //   var imageContainer = document.createElement('div');
-      //   imageContainer.classList.add('imageContainer');
-      // }
-
       var iframeElement;
       container.style.paddingLeft = '0px';
       container.style.paddingRight = '0px';
@@ -190,8 +195,6 @@ function addBanner(banner,className,parentWidth,parentHeight) {
           iframeElement.style.marginRight = '12.5vw';
         }
         if(className=='macys') {
-          // iframeElement.style.marginLeft = '2vw';
-          // iframeElement.style.marginRight = '2vw';
           iframeElement.style.display = 'flex';
           iframeElement.style.justifyContent = 'center';
         }
@@ -208,11 +211,9 @@ function addBanner(banner,className,parentWidth,parentHeight) {
       container.classList.add('container');
 
       if(className=='facebook') {
-        // adding a parent container for image
         var headerContainer = document.createElement('div');
         headerContainer.classList.add('headerContainer');
 
-        //adding a container for image 
         var imageContainer = document.createElement('div');
         imageContainer.classList.add('imageContainer');
 
@@ -243,8 +244,6 @@ function addBanner(banner,className,parentWidth,parentHeight) {
           iframeElement.style.marginRight = '12.5vw';
         }
         if(className=='macys') {
-          // iframeElement.style.marginLeft = '2vw';
-          // iframeElement.style.marginRight = '2vw';
           iframeElement.style.display = 'flex';
           iframeElement.style.justifyContent = 'center';
         }
@@ -273,13 +272,10 @@ function addBanner(banner,className,parentWidth,parentHeight) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // /////
-
         Array.from(doc.body.childNodes).forEach(node => {
           bannerContainer.appendChild(node.cloneNode(true));
         });
-
-        // After appending nodes, find the iframe and apply styles if className is 'ulta'
+        
         if(className === 'ulta') {
           const iframeElements = bannerContainer.getElementsByClassName('iframe');
           for (const iframeElement of iframeElements) {
@@ -289,17 +285,18 @@ function addBanner(banner,className,parentWidth,parentHeight) {
         }
       })
       .catch(error => console.error('Error fetching content:', error));
-
   }    
 }
 
-
+// Create "OuiAdGood_Container" CONTAINER
+// Call to create BANNERS, then append them to the CONTAINER
 function createBanner(obj, className, parentWidth, parentHeight) {
   bannerContainer = document.createElement('div');
   bannerContainer.classList.add('OuiAdGood_Container');
   bannerContainer.id = className;
 
   for (banner of obj.banners) {
+    // CLASSNAME relevant to TARGET website, to help with tailoring CSS for 
     addBanner(banner, className, parentWidth, parentHeight);
   }
 
@@ -307,6 +304,7 @@ function createBanner(obj, className, parentWidth, parentHeight) {
   return bannerContainer;
 }
 
+// Place "OuiAdGood Container" CONTAINER in association with the TARGET ELEMENT
 function placeElement(target, position) {
   if(bannerContainer)
 
@@ -319,6 +317,10 @@ function placeElement(target, position) {
   }
 }
 
+// ENTRY POINT TO CONTENT SCRIPT FOR TARGET WEBSITES
+// Checks IF the TARGET ELEMENT is found and proper,
+// then Creates "OuiAdGood_Container" CONTAINER and places it in association with the TARGET ELEMENT
+// then Creates inner BANNERS dynamically and appends them to the conatainer.
 function checkCurrent() {
   var url = window.location.href;
   for (const obj of elementConditions) {
@@ -338,8 +340,7 @@ function checkCurrent() {
   }
 }
 
-
-
+// REMOVE banners if SCRIPTS NOT ENABLED (POPUP)
 function removeBanner() {
   if (bannerContainer && bannerContainer.parentNode) {
     bannerContainer.parentNode.removeChild(bannerContainer);
@@ -348,6 +349,7 @@ function removeBanner() {
   }
 }
 
+// GOOGLE TAG MANAGER FLOW 
 function injectTrackingCodes() {
   if (!trackingCodesInjected) {
     injectFacebookPixel();

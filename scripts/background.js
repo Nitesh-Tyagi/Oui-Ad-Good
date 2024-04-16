@@ -1,3 +1,5 @@
+// LINE 88 : Change 15 days functionality
+// Source.JSON
 var Source = 'https://Nitesh-Tyagi.github.io/Oui_Ad_Good_Resources/source.json';
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -84,7 +86,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const daysDiff = (currentDate - lastDate) / (1000 * 3600 * 24); // Difference in days
 
       // Check if LastDate is not found or more than/equal to 15 days
-      if (!items.OUI_AD_GOOD_LastDate || daysDiff >= 15) {
+      if (!items.OUI_AD_GOOD_LastDate || daysDiff >= 0) {
         fetch(Source)
           .then(response => {
             if (!response.ok) {
